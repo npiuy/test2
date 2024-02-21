@@ -110,8 +110,8 @@
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
     display: flex;
-    margin: 0;
-    padding: 0;
+    margin: 20px;
+    padding: 20px;
     align-items: center;
     flex-direction: column;
     text-align: center;
