@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>診断結果</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="result">
+    <div>
+      <h2>診断結果</h2>
+      <div id="result"></div><br>
+
+      <!-- 診断結果に応じた画像 -->
+      <img
+        id="resultImage"
+        src=""
+        alt="診断結果の画像"
+        class="centered-image"
+      /><br>
+
+      <!-- 診断結果に応じた文章を表示するためのdiv -->
+      <div class=box id="resultDescription"></div><br><br>
+      <div class=left id="resultDescription2"></div><br>
+    </div>
+    <script>
+      function getQueryParameter(param) {
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        return urlParams.get(param);
+      }
+
+      var result = getQueryParameter("result");
+      document.getElementById("result").innerText =
+        "あなたは「" + decodeURIComponent(result) + "」です。";
+
+      var resultDescription = document.getElementById("resultDescription");
+      var resultImage = document.getElementById("resultImage");
+
+      switch (decodeURIComponent(result)) {
+        case "うさぎ":
+          resultDescription.innerText = "特徴";
+          resultDescription2.innerText =
+            "注意深く、繊細な感情の持ち主です。静かな環境とルーティンを好み、細やかな作業に長けています。";
+          resultImage.src =
+            "https://github.com/npiuy/test2/blob/main/usagi.jpg?raw=true";
+          break;
+        case "ねこ":
+          resultDescription.innerText = "特徴";
+          resultDescription2.innerText =
+            "独立心が強く、自己の時間を大切にします。一対一の深い関係を好み、警戒心が強いですが、一度心を開くと深い絆を築きます。";
+          resultImage.src =
+            "https://github.com/npiuy/test2/blob/main/cat.jpg?raw=true";
+          break;
+        case "いぬ":
+          resultDescription.innerText = "特徴";
+          resultDescription2.innerText =
+            "社交的で忠実、家族や友人との関係を大切にし、常にアクティブで冒険を求めます。他人を助けることに喜びを感じます。";
+          resultImage.src =
+            "https://github.com/npiuy/test2/blob/main/dog.jpg?raw=true";
+          break;
+        case "くま":
+          resultDescription.innerText = "特徴";
+          resultDescription2.innerText =
+            "リラックスを重視し、時にはのんびりと過ごすことを楽しみます。環境の変化に敏感で、食べ物に対してこだわりがあります。多様な興味を持ち、新しいことに挑戦することを楽しみます。";
+          resultImage.src =
+            "https://github.com/npiuy/test2/blob/main/kuma.jpg?raw=true";
+          break;
+        // 他の結果に応じてケースを追加
+        default:
+          resultDescription.innerText =
+            "特定の診断結果についての詳細な説明がここに表示されます。";
+          resultImage.src = ""; // デフォルト画像または空文字列
+          resultImage.alt = "該当する画像がありません"; // 画像がない場合の代替テキスト
+      }
+    </script>
+  </body>
+</html>
