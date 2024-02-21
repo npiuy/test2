@@ -74,10 +74,10 @@
             let html = "";
             for (let i = 0; i < questions.length; i++) {
                 html += `
-                    <p>${i + 1}. ${questions[i]}</p><br>
+                    <p>${i + 1}. ${questions[i]}</p>
                     <div class="quiz-option">
                         ${generateOptions(i + 1)}
-                    </div>
+                    </div><br><br>
                     `;
             }
             document.getElementById("questions").innerHTML = html;
