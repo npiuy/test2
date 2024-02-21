@@ -186,7 +186,7 @@
     border: dashed 2px #ff69b4;
     border-radius: 10px;
     position: relative;
-    left: 90%;
+    left: 50%;
     transform: translateX(-50%);
     max-width: 80%; /* コンテンツの最大幅を画面の80%に設定 */
   }
