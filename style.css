@@ -1,116 +1,5 @@
 /* スマートフォン版のスタイル */
-@media (max-width: 400px) {
-  body {
-    font-family: "Arial", sans-serif;
-    background-color: #ffe4e1;
-    display: flex;
-    margin: 50px;
-    padding: 50px;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .index {
-    text-align: left;
-    margin: 20px;
-    padding: 0px;
-  }
-
-  p,
-  div {
-    max-width: 1200px;
-    font-weight: lighter;
-  }
-
-  .quiz-option input[type="radio"] {
-    display: none;
-  }
-
-  .quiz-option label {
-    display: inline-block;
-    width: auto;
-    padding: 5px 4px;
-    margin: 2px auto;
-    background-color: #f0f0f0;
-    border: 2px solid #d0d0d0;
-    border-radius: 20px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 80%;
-  }
-
-  input[type="button"] {
-    display: inline-block;
-    width: auto;
-    padding: 10px 8px;
-    margin: 0px auto;
-    background-color: #f0f0f0;
-    border: 2px solid #d0d0d0;
-    border-radius: 20px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 80%;
-  }
-
-  .quiz-option input[type="radio"]:checked + label {
-    background-color: #ff69b4;
-    color: white;
-    border-color: #ff69b4;
-  }
-
-  input[type="text"] {
-    width: 150px;
-    padding: 15px;
-    margin: 10px 0;
-    border: 2px solid #d0d0d0;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-
-  .result {
-    display: inline-block;
-    text-align: center;
-    padding: 10px;
-    margin: 25px auto;
-    background: #ffe4e1;
-    box-shadow: 0px 0px 0px 10px #ffe4e1;
-    border: dashed 2px #ff69b4;
-    border-radius: 10px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 80%;
-  }
-
-  .box {
-    display: inline-block;
-    text-align: center;
-    padding: 1px;
-    margin: 2px;
-    width: 55px;
-    background: #ffe4e1;
-    border-top: solid 3px #ff69b4;
-    border-bottom: solid 3px #ff69b4;
-  }
-
-  .left {
-    text-align: left;
-    left: 50%;
-    transform: translateX(15%);
-    max-width: 80%;
-  }
-
-  .centered-image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-  }
-}
-
-@media (min-width: 400px) {
+/* @media (max-width: 400px) {*/
   body {
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
@@ -219,4 +108,116 @@
     margin-right: auto;
     width: 60%;
   }
-}
+
+
+/* @media (min-width: 400px) {
+  body {
+    font-family: "Arial", sans-serif;
+    background-color: #ffe4e1;
+    display: flex;
+    margin: 50px;
+    padding: 50px;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .index {
+    text-align: left;
+    margin: 20px;
+    padding: 0px;
+  }
+
+  p,
+  div {
+    max-width: 1200px;
+    font-weight: lighter;
+  }
+
+  .quiz-option input[type="radio"] {
+    display: none;
+  }
+
+  .quiz-option label {
+    display: inline-block;
+    width: auto;
+    padding: 5px 4px;
+    margin: 2px auto;
+    background-color: #f0f0f0;
+    border: 2px solid #d0d0d0;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 80%;
+  }
+
+  input[type="button"] {
+    display: inline-block;
+    width: auto;
+    padding: 10px 8px;
+    margin: 0px auto;
+    background-color: #f0f0f0;
+    border: 2px solid #d0d0d0;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 80%;
+  }
+
+  .quiz-option input[type="radio"]:checked + label {
+    background-color: #ff69b4;
+    color: white;
+    border-color: #ff69b4;
+  }
+
+  input[type="text"] {
+    width: 150px;
+    padding: 15px;
+    margin: 10px 0;
+    border: 2px solid #d0d0d0;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .result {
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    margin: 25px auto;
+    background: #ffe4e1;
+    box-shadow: 0px 0px 0px 10px #ffe4e1;
+    border: dashed 2px #ff69b4;
+    border-radius: 10px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 400px;
+  }
+
+  .box {
+    display: inline-block;
+    text-align: center;
+    padding: 1px;
+    margin: 2px;
+    width: 55px;
+    background: #ffe4e1;
+    border-top: solid 3px #ff69b4;
+    border-bottom: solid 3px #ff69b4;
+  }
+
+  .left {
+    text-align: left;
+    left: 50%;
+    transform: translateX(15%);
+    max-width: 80%;
+  }
+
+  .centered-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }*/
+
+
