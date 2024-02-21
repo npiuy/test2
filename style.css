@@ -1,5 +1,5 @@
 /* スマートフォン版のスタイル */
-@media (max-width: 1000px) {
+@media (max-width: 400px) {
   body {
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
@@ -81,7 +81,7 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 50%;
+    max-width: 80%;
   }
 
   .box {
@@ -110,7 +110,7 @@
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 400px) {
   body {
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
