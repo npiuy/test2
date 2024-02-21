@@ -1,6 +1,5 @@
 @media (min-width: 1000px) {
-  }
-    
+}
 
 /* スマートフォン版のスタイル */
 @media (max-width: 1000px) {
@@ -18,13 +17,11 @@
 
   .index {
     text-align: left;
-    max-width: 90%;
   }
 
   p,
   div {
-    max-width: 2000px;
-    font-size: 98%;
+    max-width: 1200px;
     font-weight: lighter;
   }
 
@@ -34,26 +31,25 @@
 
   .quiz-option label {
     display: inline-block;
-    width: auto; /* ボタンの幅を内容に合わせる */
+    width: auto;
     padding: 5px 4px;
     margin: 2px auto;
     background-color: #f0f0f0;
     border: 2px solid #d0d0d0;
-    border-radius: 20px; /* ボタンを丸っぽくする */
+    border-radius: 20px;
     cursor: pointer;
     text-align: center;
     font-size: 80%;
   }
 
-
   input[type="button"] {
     display: inline-block;
-    width: auto; /* ボタンの幅を内容に合わせる */
+    width: auto;
     padding: 10px 8px;
     margin: 0px auto;
     background-color: #f0f0f0;
     border: 2px solid #d0d0d0;
-    border-radius: 20px; /* ボタンを丸っぽくする */
+    border-radius: 20px;
     cursor: pointer;
     text-align: center;
     font-size: 80%;
@@ -86,7 +82,7 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 80%; /* コンテンツの最大幅を画面の80%に設定 */
+    max-width: 80%;
   }
 
   .box {
@@ -102,13 +98,15 @@
 
   .left {
     text-align: left;
-    max-width: 50%;
+    left: 50%;
+    transform: translateX(15%);
+    max-width: 80%;
   }
 
   .centered-image {
-    display: block; /* 画像をブロック要素として扱う */
-    margin-left: auto; /* 左のマージンを自動にする */
-    margin-right: auto; /* 右のマージンを自動にする */
-    width: 60%; /* 画像の幅を30%に設定（必要に応じて調整） */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
   }
 }
