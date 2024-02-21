@@ -36,7 +36,7 @@
     display: inline-block;
     width: auto; /* ボタンの幅を内容に合わせる */
     padding: 5px 4px;
-    margin: 0px auto;
+    margin: 2px auto;
     background-color: #f0f0f0;
     border: 2px solid #d0d0d0;
     border-radius: 20px; /* ボタンを丸っぽくする */
