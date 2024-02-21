@@ -1,8 +1,6 @@
 @media (min-width: 1000px) {
-  body {
-    font-family: "Arial", sans-serif;
   }
-  
+    
 
 /* スマートフォン版のスタイル */
 @media (max-width: 1000px) {
