@@ -77,7 +77,7 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 5%; /* コンテンツの最大幅を画面の80%に設定 */
+    max-width: 80%; /* コンテンツの最大幅を画面の80%に設定 */
   }
 
   .box {
