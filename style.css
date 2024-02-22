@@ -4,8 +4,8 @@
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
     display: flex;
-    margin: 50px;
-    padding: 50px;
+    margin: 0px;
+    padding: 0px;
     align-items: center;
     flex-direction: column;
     text-align: center;
@@ -69,7 +69,7 @@
     font-size: 16px;
   }
 
-  .result {
+ /*  .result {
     display: inline-block;
     text-align: center;
     padding: 10px;
@@ -82,7 +82,7 @@
     left: 50%;
     transform: translateX(-50%);
     max-width: 400px;
-  }
+  }*/
 
   .box {
     display: inline-block;
@@ -97,9 +97,9 @@
 
   .left {
     text-align: left;
-    left: 50%;
-    transform: translateX(15%);
-    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60%;
   }
 
   .centered-image {
@@ -215,6 +215,8 @@
 
   .centered-image {
     display: block;
+    margin-left: auto;
+    margin-right: auto;
     width: 60%;
   }*/
 
