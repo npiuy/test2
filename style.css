@@ -101,8 +101,8 @@
     text-align: center;
     padding: 2px;
     background: #ffe4e1;
-    border-top: solid 8px #ff69b4;
-    border-bottom: solid 8px #ff69b4;
+    border-top: solid 3px #ff69b4;
+    border-bottom: solid 3px #ff69b4;
   }
 
   .left {
