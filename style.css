@@ -83,8 +83,8 @@
   .box {
     display: inline-block;
     text-align: center;
-    padding: 1px;
-    margin: 2px;
+    padding: 0.5%;
+    margin: 0.5%;
     width: 15%;
     background: #ffe4e1;
     border-top: solid 3px #ff69b4;
@@ -218,5 +218,3 @@
     margin-right: auto;
     width: 60%;
   }*/
-
-
