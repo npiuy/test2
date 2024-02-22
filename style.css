@@ -122,7 +122,6 @@
   }
 } */
 
-@media (min-width: 400px) {
   body {
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
@@ -243,6 +242,4 @@
     margin-right: auto;
     max-width: 300px;
   }
-
-
 }
