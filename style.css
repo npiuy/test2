@@ -1,5 +1,5 @@
 /* スマートフォン版のスタイル */
-@media (max-width: 440px) {
+@media (max-width: 393px) {
   body {
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
@@ -31,6 +31,7 @@
     display: inline-block;
     width: auto;
     height: auto;
+    max-height: auto;
     max-width: 130px;
     padding: 5px 4px;
     margin: 2px auto;
@@ -40,6 +41,8 @@
     cursor: pointer;
     text-align: center;
     font-size: 80%;
+    object-fit: scale-down;
+    font-size: 3vw
   }
 
   input[type="button"] {
@@ -122,7 +125,7 @@
     max-width: 80%;
   }
 }
-@media (min-width: 440px) {
+@media (min-width: 393px) {
   body {
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
@@ -210,7 +213,7 @@
     box-shadow: 0px 0px 0px 10px #ffe4e1;
     border: dashed 2px #ff69b4;
     border-radius: 10px;
-    max-width: 300px;
+    max-width: 250px;
   }
 
   #result {
@@ -224,7 +227,7 @@
     margin-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
-    width: 300px;
+    width: 250px;
   }
 
   .box {
@@ -245,7 +248,7 @@
     margin-bottom: 15px;
     margin-left: auto;
     margin-right: auto;
-    max-width: 300px;
+    max-width: 250px;
   }
 
 
