@@ -69,6 +69,13 @@
     font-size: 16px;
   }
 
+  .centered-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }
+
   /* .result {
     display: inline-block;
     background: #ffe4e1;
@@ -85,7 +92,7 @@
     border-radius: 10px;
     max-width: 3000px;
     font-size: 100%;
-  }*/
+  }
 
   .box {
     display: inline-block;
@@ -105,14 +112,6 @@
     margin-right: auto;
     max-width: 60%;
   }
-
-  .centered-image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-  }
-
 
 /* @media (min-width: 400px) {
   
