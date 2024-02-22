@@ -1,77 +1,271 @@
 <!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <title>診断結果</title>
-    <link rel="stylesheet" href="style.css">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>どうぶつ診断</title>
+      <link rel="stylesheet" href="style.css">
+<html lang="en">
   </head>
-  <body class="result">
-    <div>
-      <h2>診断結果</h2>
-      <div id="result"></div><br><br>
+  <body class="index">
+      <h2>どうぶつ診断</h2>
+      <form id="quizForm">
+          <div id="questions"></div>
 
-      <!-- 診断結果に応じた画像 -->
-      <img
-        id="resultImage"
-        src=""
-        alt="診断結果の画像"
-        class="centered-image"
-      /><br><br>
+          <!--<p>17. 名前を入力してください</p>
+          <input type="text" name="q17" placeholder="名前を入力" required><br><br> 
 
-      <!-- 診断結果に応じた文章を表示するためのdiv -->
-      <div class=box id="resultDescription"></div><br>
-      <div class=left id="resultDescription2"></div><br>
-    </div>
-    <script>
-      function getQueryParameter(param) {
-        var queryString = window.location.search;
-        var urlParams = new URLSearchParams(queryString);
-        return urlParams.get(param);
-      }
+    <input type="button" onclick="selectAllVeryApplicable()" value="「とても当てはまる」を選択">
+    <input type="button" onclick="selectAllSomewhatApplicable()" value="「やや当てはまる」を選択">
+    <input type="button" class="button" onclick="selectAllNeutral()" value="全部の「どちらでもない」を選択"><br><br>-->
+    <input type="button" class="button" onclick="calculateScore()" value="診断結果を見る"><br><br>
+    <div id="result"></div><br>
+    <input type="button" class="button" id="copyButton" onclick="copyResult()" value="結果をコピー" style="display:none;">
+    <div id="scores"></div> 
+    <input type="button" class="button" id="csvButton"onclick="copyResultsToClipboard()" value="カンマ区切りでコピー" style="display:none;">
+  
+ <script>
+        const questions = [
+        "人混みよりも静かな場所を好む。",
+        "慣れ親しんだ環境やルーティンを好む。",
+        "細やかな感情の変化を感じ取ることができる。",
+        "細かい作業が得意で、注意深く物事を処理できる。",
+        "独立心が強く、自分の時間を大切にする。",
+        "集団よりも一対一の関係を好む。",
+        "警戒心が強く、すぐには心を開かない。",
+        "長時間一人でいることが苦にならない。",
+        "新しい出会いや冒険を楽しむ。",
+        "忠実で、家族や友人を大切にする。",
+        "身体を動かすことが好きで、アクティブである。",
+        "他人を助けることに喜びを感じる。",
+        "時には怠けたいと思うことがある。",
+        "周囲の環境に敏感で、変化に対応するのが得意。",
+        "食べ物にうるさい面がある。",
+        "複数のプロジェクトや活動に興味を持つことが多い。",
+        ];
 
-      var result = getQueryParameter("result");
-      document.getElementById("result").innerText =
-        "あなたは「" + decodeURIComponent(result) + "」です。";
+        const options = [
+            "とても当てはまる",
+            "やや当てはまる",
+            "どちらでもない",
+            "あまり当てはまらない",
+            "全く当てはまらない",
+        ];
 
-      var resultDescription = document.getElementById("resultDescription");
-      var resultImage = document.getElementById("resultImage");
 
-      switch (decodeURIComponent(result)) {
-        case "うさぎ":
-          resultDescription.innerText = "特徴";
-          resultDescription2.innerText =
-            "注意深く、繊細な感情の持ち主です。静かな環境とルーティンを好み、細やかな作業に長けています。";
-          resultImage.src =
-            "https://github.com/npiuy/test2/blob/main/usagi.jpg?raw=true";
-          break;
-        case "ねこ":
-          resultDescription.innerText = "特徴";
-          resultDescription2.innerText =
-            "独立心が強く、自己の時間を大切にします。一対一の深い関係を好み、警戒心が強いですが、一度心を開くと深い絆を築きます。";
-          resultImage.src =
-            "https://github.com/npiuy/test2/blob/main/cat.jpg?raw=true";
-          break;
-        case "いぬ":
-          resultDescription.innerText = "特徴";
-          resultDescription2.innerText =
-            "社交的で忠実、家族や友人との関係を大切にし、常にアクティブで冒険を求めます。他人を助けることに喜びを感じます。";
-          resultImage.src =
-            "https://github.com/npiuy/test2/blob/main/dog.jpg?raw=true";
-          break;
-        case "くま":
-          resultDescription.innerText = "特徴";
-          resultDescription2.innerText =
-            "リラックスを重視し、時にはのんびりと過ごすことを楽しみます。環境の変化に敏感で、食べ物に対してこだわりがあります。多様な興味を持ち、新しいことに挑戦することを楽しみます。";
-          resultImage.src =
-            "https://github.com/npiuy/test2/blob/main/kuma.jpg?raw=true";
-          break;
-        // 他の結果に応じてケースを追加
-        default:
-          resultDescription.innerText =
-            "特定の診断結果についての詳細な説明がここに表示されます。";
-          resultImage.src = ""; // デフォルト画像または空文字列
-          resultImage.alt = "該当する画像がありません"; // 画像がない場合の代替テキスト
-      }
-    </script>
-  </body>
+        function generateOptions(questionNumber) {
+           let html = "";
+           for (let i = 0; i < options.length; i++) {
+               const value = i === 0 ? 1 : i === 1 ? 0.8 : 0;
+               html += `
+               <input type="radio" id="q${i + 1}-${questionNumber}" name="q${questionNumber}" value="${value}" ${i === 0 ? "required" : ""} />
+               <label for="q${i + 1}-${questionNumber}">${options[i]}</label>
+               `;
+               // どちらでもないとあまり当てはまらないの間に改行を追加
+               if (i === 2) {
+               html += "<br>"; // 改行を追加
+               }
+            }
+            return html;
+        }
+
+
+        function generateQuestions() {
+            let html = "";
+            for (let i = 0; i < questions.length; i++) {
+                html += `
+                    <p>${i + 1}. ${questions[i]}</p>
+                    <div class="quiz-option">
+                        ${generateOptions(i + 1)}
+                    </div><br><br>
+                    `;
+            }
+            document.getElementById("questions").innerHTML = html;
+        }
+
+        generateQuestions();
+
+      // 各質問の属性と得点を定義
+      var attributes = [
+        { question: 1, attribute: "うさぎ", score: 1 },
+        { question: 2, attribute: "うさぎ", score: 2 },
+        { question: 3, attribute: "うさぎ", score: 1 },
+        { question: 4, attribute: "うさぎ", score: 2 },
+        { question: 5, attribute: "ねこ", score: 1 },
+        { question: 6, attribute: "ねこ", score: 2 },
+        { question: 7, attribute: "ねこ", score: 1 },
+        { question: 8, attribute: "ねこ", score: 2 },
+        { question: 9, attribute: "いぬ", score: 1 },
+        { question: 10, attribute: "いぬ", score: 2 },
+        { question: 11, attribute: "いぬ", score: 1 },
+        { question: 12, attribute: "いぬ", score: 2 },
+        { question: 13, attribute: "くま", score: 2 },
+        { question: 14, attribute: "くま", score: 1 },
+        { question: 15, attribute: "くま", score: 2 },
+        { question: 16, attribute: "くま", score: 1 },
+      ];
+
+        var resultText = '';
+        var totalScores = {};
+        var finalDiagnosisResult = '';
+
+    function calculateScore() {
+    //var isAllAnswered = true; // すべて回答されているかどうかを追跡するフラグ
+
+    // 質問1から65までの回答をチェック
+    //for (let i = 1; i <= 16; i++) {
+        //if (!document.querySelector('input[name="q' + i + '"]:checked')) {
+            //isAllAnswered = false; // 未回答の質問が見つかったらフラグをfalseに設定
+           // break; // ループを抜ける
+      //  }
+    //}
+
+    // Line名の入力をチェック
+    //var lineName = document.querySelector('input[name="q17"]').value.trim();
+    //if (lineName === '') {
+    //    isAllAnswered = false;
+    //}
+
+   // if (!isAllAnswered) {
+        // 一つでも未回答の質問がある場合は警告を表示
+       // alert('回答漏れがあります。すべての質問に回答してください。');
+       // return; // ここで関数を終了させる
+    //}
+
+    // 以下に結果計算と表示のコードを続ける
+    var totalScores = {}; // 属性ごとの合計得点を保持するオブジェクト
+
+    // 得点計算の初期化
+    attributes.forEach(function(attr) {
+        if (!totalScores[attr.attribute]) {
+            totalScores[attr.attribute] = 0; // 属性がまだキーとして存在しなければ0で初期化
+        }
+    });
+
+            attributes.forEach(function(attr) {
+                var questionName = 'q' + attr.question;
+                var radios = document.getElementsByName(questionName);
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        var score = parseFloat(radios[i].value) * attr.score; // 選択された値によって得点を計算
+                        totalScores[attr.attribute] += score; // 属性ごとに得点を加算
+                        break;
+                    }
+                }
+            });
+
+            // 属性の優先順位リスト
+            var attributePriority = [
+                'うさぎ', 'ねこ', 'いぬ', 'くま', 
+            ];
+
+            // 最高得点を持つ属性を決定
+            var maxScore = 0;
+            var maxAttribute = '';
+
+            attributePriority.forEach(function(attr) {
+                if (totalScores[attr] > maxScore) {
+                    maxScore = totalScores[attr];
+                    maxAttribute = attr;
+                }
+            });
+
+            // 特殊ルールの適用
+            if (maxAttribute === 'ねこ' && totalScores['うさぎ'] >= 13) {
+                maxAttribute = 'ねこ';
+            } else {
+                // 同点の場合、attributePriorityの順序に基づいて最初に見つかった属性を選択
+                var tiedAttributes = attributePriority.filter(function(attr) {
+                    return totalScores[attr] === maxScore;
+                });
+                maxAttribute = tiedAttributes[0]; // 同点の属性がある場合、一番左側を選択
+            }
+
+           // 最終的な結果テキストを更新
+           finalDiagnosisResult = maxAttribute;
+           document.getElementById('result').innerHTML = resultText;
+
+           // ここでリダイレクト処理を追加
+           // 例えば、結果ページのURLが 'result.html' と仮定し、クエリパラメータに結果を追加
+           var redirectUrl = 'result.html?result=' + encodeURIComponent(finalDiagnosisResult);
+           window.location.href = redirectUrl;
+
+           // 結果の表示
+           //document.getElementById('result').innerHTML = 'あなたは「' + maxAttribute + '」です。';
+           // 結果コピー用のボタンを表示
+           //document.getElementById('copyButton').style.display = 'inline';   
+           
+           
+
+           // 属性の表示順序を定義
+           // var displayOrder = [
+           // 'くま', 'いぬ', 'ねこ', 'うさぎ', 
+           //];
+
+           // 全属性の得点を表示するコード
+           //var scoresResult = '<h3>各属性の得点:</h3>';
+
+           // 指定された表示順に従って得点を表示
+           //displayOrder.forEach(function(attr) {
+               // 属性の得点を取得、未定義の場合は0とする
+           //    var score = totalScores[attr] !== undefined ? totalScores[attr].toFixed(2) : "0.00";
+           //    scoresResult += attr + ': ' + score + '<br>'; // 小数点以下2桁で表示
+           // });
+
+           // 得点の表示を追加
+           // document.getElementById('scores').innerHTML = scoresResult;
+
+        }
+
+        //function copyResult() {
+            // 結果テキストの取得
+            //var resultText = document.getElementById('result').innerText;
+
+            // resultTextの内容をクリップボードにコピー
+            //navigator.clipboard.writeText(resultText).then(function() {
+            //alert('結果をコピーしました');
+            //}).catch(function(error) {
+            //alert('エラー: ' + error);
+           //});
+        //}
+
+            function selectAllVeryApplicable() {
+            for (let i = 1; i <= 16; i++) { // 65は質問の総数
+                var radios = document.getElementsByName('q' + i);
+                for (var j = 0; j < radios.length; j++) {
+                    if (radios[j].value === "1") { // 「とても当てはまる」の値が"1"
+                        radios[j].checked = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+             function selectAllSomewhatApplicable() {
+             for (let i = 1; i <= 16; i++) { // 65は質問の総数
+                var radios = document.getElementsByName('q' + i);
+                for (var j = 0; j < radios.length; j++) {
+                     if (radios[j].value === "0.8") { // 「やや当てはまる」の値
+                         radios[j].checked = true;
+                         break;
+                    }
+                }
+            }
+        }
+
+            function selectAllNeutral() {
+            for (let i = 1; i <= 16; i++) { // 65は質問の総数
+                var radios = document.getElementsByName('q' + i);
+                for (var j = 0; j < radios.length; j++) {
+                    if (radios[j].value === "0") { // 「どちらでもない」の値
+                        radios[j].checked = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+</script>
+</body>
 </html>
