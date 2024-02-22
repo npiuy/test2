@@ -90,9 +90,9 @@
   .box {
     display: inline-block;
     text-align: center;
-    padding: 0.5%;
-    margin: 0.5%;
-    width: 15%;
+    padding: 2px;
+    margin: 5px;
+    width: 60px;
     background: #ffe4e1;
     border-top: solid 3px #ff69b4;
     border-bottom: solid 3px #ff69b4;
@@ -103,8 +103,6 @@
     text-align: left;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 0.5%;
-    margin-bottom: 0.5%;
     max-width: 60%;
   }
 
@@ -112,8 +110,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 1%;
-    margin-bottom: 0.5%;
     width: 60%;
   }
 
