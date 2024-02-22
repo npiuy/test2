@@ -1,5 +1,5 @@
 /* スマートフォン版のスタイル */
-@media (min-width: 400px) {
+@media (max-width: 400px) {
   body {
     font-family: "Arial", sans-serif;
     background-color: #ffe4e1;
