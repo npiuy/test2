@@ -2,261 +2,272 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ここにページのタイトルが入ります</title>
-    <meta property="og:title" content="ページのタイトル" />
-　　<meta property="og:description" content="ページの短い説明" />
-　　<meta property="og:image" content="画像のURL" />
-　　<meta property="og:url" content="ページのURL" />
-    %header_settings%
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>どうぶつ診断</title> <!-- ここはタイトルを示しており、必要に応じて変更してください -->
+    <link rel="stylesheet" href="style.css">
+    <!-- ページの説明を追加する -->
+    <meta name="description" content="あなたの性格や傾向を動物に例えて占います。どうぶつ占いで自分の新たな一面を発見しましょう。">
 </head>
-<body>
-    <div id="container">
-        <div id="content1">
-            %system_message%
-%custom_header%
-<div class="content_title">
-    <h2>%item_name%</h2>
-</div>
-<div class="content_form">
-    <form action="%SERVER%p/r/%item_id%" enctype="multipart/form-data" id="UserItemForm" class="myForm" method="post" accept-charset="utf-8">
-        <input type="hidden" name="_method" value="POST"/>
-        %payment_method_radio%
-        %event_datetime(type,cal)(time_type,button)%
+  <body class="index">
+      <h2>どうぶつ診断</h2>
+      <form id="quizForm">
+          <div id="questions"></div>
 
-        <!-- 姓 -->
-        <div class="input text input_unit  required">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Username1" class="form_input_label  required">姓</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <input name="data[User][name1]" id="Username1" value="" class=" required" type="text"/>
-            </div>
-        </div>
+          <!--<p>17. 名前を入力してください</p>
+          <input type="text" name="q17" placeholder="名前を入力" required><br><br> 
 
-        <!-- 名 -->
-        <div class="input text input_unit  required">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Username2" class="form_input_label  required">名</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <input name="data[User][name2]" id="Username2" value="" class=" required" type="text"/>
-            </div>
-        </div>
+    <input type="button" onclick="selectAllVeryApplicable()" value="「とても当てはまる」を選択">
+    <input type="button" onclick="selectAllSomewhatApplicable()" value="「やや当てはまる」を選択">
+    <input type="button" class="button" onclick="selectAllNeutral()" value="全部の「どちらでもない」を選択"><br><br>-->
+    <input type="button" class="button" onclick="calculateScore()" value="診断結果を見る"><br><br>
+    <div id="result"></div><br>
+    <input type="button" class="button" id="copyButton" onclick="copyResult()" value="結果をコピー" style="display:none;">
+    <div id="scores"></div> 
+    <input type="button" class="button" id="csvButton"onclick="copyResultsToClipboard()" value="カンマ区切りでコピー" style="display:none;">
+  
+ <script>
+        const questions = [
+        //"人混みよりも静かな場所を好む。",
+        //"慣れ親しんだ環境やルーティンを好む。",
+        "細やかな感情の変化を感じ取ることができる。",
+        //"細かい作業が得意で、注意深く物事を処理できる。",
+        "独立心が強く、自分の時間を大切にする。",
+        //"集団よりも一対一の関係を好む。",
+        //"警戒心が強く、すぐには心を開かない。",
+        //"長時間一人でいることが苦にならない。",
+        //"新しい出会いや冒険を楽しむ。",
+        //"忠実で、家族や友人を大切にする。",
+        "身体を動かすことが好きで、アクティブである。",
+        //"他人を助けることに喜びを感じる。",
+        //"時には怠けたいと思うことがある。",
+        //"周囲の環境に敏感で、変化に対応するのが得意。",
+        //"食べ物にうるさい面がある。",
+        "複数のプロジェクトや活動に興味を持つことが多い。",
+        ];
 
-        <!-- facebook名 -->
-        <div class="input text input_unit  required">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Userfree1" class="form_input_label  required">facebook名</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <input name="data[User][free1]" id="Userfree1" value="" class=" required" type="text"/>
-            </div>
-        </div>
+        const options = [
+            "とても当てはまる",
+            "やや当てはまる",
+            "どちらでもない",
+            "あまり当てはまらない",
+            "全く当てはまらない",
+        ];
 
-        <!-- メールアドレス -->
-        <div class="input text input_unit  required">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Usermail" class="form_input_label  required">メールアドレス</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <input name="data[User][mail]" id="Usermail" value="" class=" required" type="text"/>
-            </div>
-        </div>
 
-        <!-- 電話番号 -->
-        <div class="input text input_unit  required">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Usertel" class="form_input_label  required">電話番号</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <input name="data[User][tel]" id="Usertel" value="" class=" required" type="text"/>
-            </div>
-        </div>
+        function generateOptions(questionNumber) {
+           let html = "";
+           for (let i = 0; i < options.length; i++) {
+               const value = i === 0 ? 1 : i === 1 ? 0.8 : 0;
+               html += `
+               <input type="radio" id="q${i + 1}-${questionNumber}" name="q${questionNumber}" value="${value}" ${i === 0 ? "required" : ""} />
+               <label for="q${i + 1}-${questionNumber}">${options[i]}</label>
+               `;
+               // どちらでもないとあまり当てはまらないの間に改行を追加
+               if (i === 2) {
+               html += "<br>"; // 改行を追加
+               }
+            }
+            return html;
+        }
 
-        <!-- 郵便番号 -->
-        <div class="input text input_unit  required">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Userzipcode" class="form_input_label  required">郵便番号</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <input name="data[User][zipcode]" id="Userzipcode" value="" class=" required" maxlength="8" type="text"/>
-            </div>
-        </div>
 
-        <!-- 都道府県 -->
-        <div class="input select input_unit  required" >
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Userpref" class="form_input_label  required">都道府県</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <div class="select_frame">
-                    <select name="data[User][pref]" id="Userpref" class="form_input_input  required">
-                        <option value="北海道" >北海道</option>
-                        <option value="青森県" >青森県</option>
-                        <option value="岩手県" >岩手県</option>
-                        <option value="宮城県" >宮城県</option>
-                        <option value="秋田県" >秋田県</option>
-                        <option value="山形県" >山形県</option>
-                        <option value="福島県" >福島県</option>
-                        <option value="茨城県" >茨城県</option>
-                        <option value="栃木県" >栃木県</option>
-                        <option value="群馬県" >群馬県</option>
-                        <option value="埼玉県" >埼玉県</option>
-                        <option value="千葉県" >千葉県</option>
-                        <option value="東京都" selected="selected">東京都</option>
-                        <option value="神奈川県" >神奈川県</option>
-                        <option value="新潟県" >新潟県</option>
-                        <option value="富山県" >富山県</option>
-                        <option value="石川県" >石川県</option>
-                        <option value="福井県" >福井県</option>
-                        <option value="山梨県" >山梨県</option>
-                        <option value="長野県" >長野県</option>
-                        <option value="岐阜県" >岐阜県</option>
-                        <option value="静岡県" >静岡県</option>
-                        <option value="愛知県" >愛知県</option>
-                        <option value="三重県" >三重県</option>
-                        <option value="滋賀県" >滋賀県</option>
-                        <option value="京都府" >京都府</option>
-                        <option value="大阪府" >大阪府</option>
-                        <option value="兵庫県" >兵庫県</option>
-                        <option value="奈良県" >奈良県</option>
-                        <option value="和歌山県" >和歌山県</option>
-                        <option value="鳥取県" >鳥取県</option>
-                        <option value="島根県" >島根県</option>
-                        <option value="岡山県" >岡山県</option>
-                        <option value="広島県" >広島県</option>
-                        <option value="山口県" >山口県</option>
-                        <option value="徳島県" >徳島県</option>
-                        <option value="香川県" >香川県</option>
-                        <option value="愛媛県" >愛媛県</option>
-                        <option value="高知県" >高知県</option>
-                        <option value="福岡県" >福岡県</option>
-                        <option value="佐賀県" >佐賀県</option>
-                        <option value="長崎県" >長崎県</option>
-                        <option value="熊本県" >熊本県</option>
-                        <option value="大分県" >大分県</option>
-                        <option value="宮崎県" >宮崎県</option>
-                        <option value="鹿児島県" >鹿児島県</option>
-                        <option value="沖縄県" >沖縄県</option>
-                                                
-                   </select>
-               </div>
-            </div>
-        </div>
+        function generateQuestions() {
+            let html = "";
+            for (let i = 0; i < questions.length; i++) {
+                html += `
+                    <p>${i + 1}. ${questions[i]}</p>
+                    <div class="quiz-option">
+                        ${generateOptions(i + 1)}
+                    </div><br><br>
+                    `;
+            }
+            document.getElementById("questions").innerHTML = html;
+        }
 
-        <!-- 住所 -->
-        <div class="input text input_unit  required">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Userzip" class="form_input_label  required">住所</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <input name="data[User][zip]" id="Userzip" value="" class=" required" type="text"/>
-            </div>
-        </div>
+        generateQuestions();
 
-        <!-- 【入金について】 ①お申込後、3営業日以内に入金が確認できない場合は自動的に申し込みがキャンセルとなります ②入金後の返金はお受けできません -->
-        <div class="input radiobutton input_unit  required ">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Userfree3" class="form_input_label">【入金について】 ①お申込後、3営業日以内に入金が確認できない場合は自動的に申し込みがキャンセルとなります ②入金後の返金はお受けできません</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <div class="radiobutton_frame">
-                    <div class="radiobutton_input">
-                        <input name="data[User][free3]" type="radio" id="Userfree3_0" class=" required" value="確認しました" />
-                    </div>
-                    <div class="radiobutton_label">
-                        <label for="Userfree3_0" class="form_input_radio_label">確認しました</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+      // 各質問の属性と得点を定義
+      var attributes = [
+        { question: 1, attribute: "うさぎ", score: 1 },
+        { question: 2, attribute: "ねこ", score: 1 },
+        { question: 3, attribute: "いぬ", score: 1 },
+        { question: 4, attribute: "くま", score: 1 },
+       // { question: 5, attribute: "ねこ", score: 1 },
+       // { question: 6, attribute: "ねこ", score: 2 },
+       // { question: 7, attribute: "ねこ", score: 1 },
+       // { question: 8, attribute: "ねこ", score: 2 },
+       // { question: 9, attribute: "いぬ", score: 1 },
+       // { question: 10, attribute: "いぬ", score: 2 },
+       // { question: 11, attribute: "いぬ", score: 1 },
+       // { question: 12, attribute: "いぬ", score: 2 },
+       // { question: 13, attribute: "くま", score: 2 },
+       // { question: 14, attribute: "くま", score: 1 },
+       // { question: 15, attribute: "くま", score: 2 },
+       // { question: 16, attribute: "くま", score: 1 },
+      ];
 
-        <!-- 【退会について】 ①運営事務局に退会を申し出てください。ご希望の請求停止日の10日前までにお知らせください ②申し出を受理した際に事務局がお支払いの請求を停止いたします -->
-        <div class="input radiobutton input_unit  required ">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Userfree2" class="form_input_label">【退会について】 ①運営事務局に退会を申し出てください。ご希望の請求停止日の10日前までにお知らせください ②申し出を受理した際に事務局がお支払いの請求を停止いたします</label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <div class="radiobutton_frame">
-                    <div class="radiobutton_input">
-                        <input name="data[User][free2]" type="radio" id="Userfree2_0" class=" required" value="確認しました" />
-                    </div>
-                    <div class="radiobutton_label">
-                        <label for="Userfree2_0" class="form_input_radio_label">確認しました</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+        var resultText = '';
+        var totalScores = {};
+        var finalDiagnosisResult = '';
 
-        <!-- 【注意事項】①お申し込みは、入金を持って確定とさせていただきます ②額面はコミュニティ参加費(任意の特典含む)であり、旅費 ・ 食費 ・ 宿泊費 ・ 通信費・その他指定のない有料コンテンツやイベントの費用などは含まれません  -->
-        <div class="input radiobutton input_unit  required ">
-            <div class="my_column my_left">
-                <div class="label_frame">
-                    <label for="Userfree9" class="form_input_label">【注意事項】①お申し込みは、入金を持って確定とさせていただきます ②額面はコミュニティ参加費(任意の特典含む)であり、旅費 ・ 食費 ・ 宿泊費 ・ 通信費・その他指定のない有料コンテンツやイベントの費用などは含まれません </label>
-                </div>
-            </div>
-            <div class="my_column my_right">
-                <div class="radiobutton_frame">
-                    <div class="radiobutton_input">
-                        <input name="data[User][free9]" type="radio" id="Userfree9_0" class=" required" value="確認しました" />
-                    </div>
-                    <div class="radiobutton_label">
-                        <label for="Userfree9_0" class="form_input_radio_label">確認しました</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+    function calculateScore() {
+    //var isAllAnswered = true; // すべて回答されているかどうかを追跡するフラグ
 
-        <!-- 画像認証 -->
-        %picactivate%        
+    // 質問1から65までの回答をチェック
+    //for (let i = 1; i <= 16; i++) {
+        //if (!document.querySelector('input[name="q' + i + '"]:checked')) {
+            //isAllAnswered = false; // 未回答の質問が見つかったらフラグをfalseに設定
+           // break; // ループを抜ける
+      //  }
+    //}
 
-        <!-- 確認ボタン -->
-        <div class="submit form_input_submit">
-            <input type="submit" value="確認する"/>
-        </div>
-        
-        <input type="hidden" id="server_url" value="%SERVER%"/>
-        
-    </form>
-</div>
+    // Line名の入力をチェック
+    //var lineName = document.querySelector('input[name="q17"]').value.trim();
+    //if (lineName === '') {
+    //    isAllAnswered = false;
+    //}
 
-<script src="%SERVER%js/validation.js?d=%timestamp%"></script>
-<script src="%SERVER%js/autozip.js"></script>
+   // if (!isAllAnswered) {
+        // 一つでも未回答の質問がある場合は警告を表示
+       // alert('回答漏れがあります。すべての質問に回答してください。');
+       // return; // ここで関数を終了させる
+    //}
 
-%custom_footer%
-</div>
-        <div id="footer">
-            <div class="footer_linkbox clearfix">
-                <ul>
-                %privacy%
-                %tokusho%
-                </ul>
-            </div>
-            <div class="footer_copyright">
-                <span class="copyright_all"> Copyright &copy %copyright% All Rights Reserved. </span>
-                <span class="powered_by"> Powered by %systemname% </span>
-            </div>
-        </div>
-    </div>
+    // 以下に結果計算と表示のコードを続ける
+    var totalScores = {}; // 属性ごとの合計得点を保持するオブジェクト
+
+    // 得点計算の初期化
+    attributes.forEach(function(attr) {
+        if (!totalScores[attr.attribute]) {
+            totalScores[attr.attribute] = 0; // 属性がまだキーとして存在しなければ0で初期化
+        }
+    });
+
+            attributes.forEach(function(attr) {
+                var questionName = 'q' + attr.question;
+                var radios = document.getElementsByName(questionName);
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        var score = parseFloat(radios[i].value) * attr.score; // 選択された値によって得点を計算
+                        totalScores[attr.attribute] += score; // 属性ごとに得点を加算
+                        break;
+                    }
+                }
+            });
+
+            // 属性の優先順位リスト
+            var attributePriority = [
+                'うさぎ', 'ねこ', 'いぬ', 'くま', 
+            ];
+
+            // 最高得点を持つ属性を決定
+            var maxScore = 0;
+            var maxAttribute = '';
+
+            attributePriority.forEach(function(attr) {
+                if (totalScores[attr] > maxScore) {
+                    maxScore = totalScores[attr];
+                    maxAttribute = attr;
+                }
+            });
+
+            // 特殊ルールの適用
+            if (maxAttribute === 'ねこ' && totalScores['うさぎ'] >= 13) {
+                maxAttribute = 'ねこ';
+            } else {
+                // 同点の場合、attributePriorityの順序に基づいて最初に見つかった属性を選択
+                var tiedAttributes = attributePriority.filter(function(attr) {
+                    return totalScores[attr] === maxScore;
+                });
+                maxAttribute = tiedAttributes[0]; // 同点の属性がある場合、一番左側を選択
+            }
+
+           // 最終的な結果テキストを更新
+           finalDiagnosisResult = maxAttribute;
+           document.getElementById('result').innerHTML = resultText;
+
+           // ここでリダイレクト処理を追加
+           // 例えば、結果ページのURLが 'result.html' と仮定し、クエリパラメータに結果を追加
+           var redirectUrl = 'result.html?result=' + encodeURIComponent(finalDiagnosisResult);
+           window.location.href = redirectUrl;
+
+           // 結果の表示
+           //document.getElementById('result').innerHTML = 'あなたは「' + maxAttribute + '」です。';
+           // 結果コピー用のボタンを表示
+           //document.getElementById('copyButton').style.display = 'inline';   
+           
+           
+
+           // 属性の表示順序を定義
+           // var displayOrder = [
+           // 'くま', 'いぬ', 'ねこ', 'うさぎ', 
+           //];
+
+           // 全属性の得点を表示するコード
+           //var scoresResult = '<h3>各属性の得点:</h3>';
+
+           // 指定された表示順に従って得点を表示
+           //displayOrder.forEach(function(attr) {
+               // 属性の得点を取得、未定義の場合は0とする
+           //    var score = totalScores[attr] !== undefined ? totalScores[attr].toFixed(2) : "0.00";
+           //    scoresResult += attr + ': ' + score + '<br>'; // 小数点以下2桁で表示
+           // });
+
+           // 得点の表示を追加
+           // document.getElementById('scores').innerHTML = scoresResult;
+
+        }
+
+        //function copyResult() {
+            // 結果テキストの取得
+            //var resultText = document.getElementById('result').innerText;
+
+            // resultTextの内容をクリップボードにコピー
+            //navigator.clipboard.writeText(resultText).then(function() {
+            //alert('結果をコピーしました');
+            //}).catch(function(error) {
+            //alert('エラー: ' + error);
+           //});
+        //}
+
+            function selectAllVeryApplicable() {
+            for (let i = 1; i <= 16; i++) { // 65は質問の総数
+                var radios = document.getElementsByName('q' + i);
+                for (var j = 0; j < radios.length; j++) {
+                    if (radios[j].value === "1") { // 「とても当てはまる」の値が"1"
+                        radios[j].checked = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+             function selectAllSomewhatApplicable() {
+             for (let i = 1; i <= 16; i++) { // 65は質問の総数
+                var radios = document.getElementsByName('q' + i);
+                for (var j = 0; j < radios.length; j++) {
+                     if (radios[j].value === "0.8") { // 「やや当てはまる」の値
+                         radios[j].checked = true;
+                         break;
+                    }
+                }
+            }
+        }
+
+            function selectAllNeutral() {
+            for (let i = 1; i <= 16; i++) { // 65は質問の総数
+                var radios = document.getElementsByName('q' + i);
+                for (var j = 0; j < radios.length; j++) {
+                    if (radios[j].value === "0") { // 「どちらでもない」の値
+                        radios[j].checked = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+</script>
 </body>
 </html>
+
